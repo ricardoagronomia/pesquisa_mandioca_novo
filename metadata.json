@@ -1,0 +1,6 @@
+{
+  "name": "Mandioca Research Tracker",
+  "description": "Sistema PWA para acompanhamento e gestão de pesquisa de cultivo de mandioca, migrado para suporte SQL customizado.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

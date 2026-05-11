@@ -42,19 +42,11 @@
       ignoreDuplicates: self._ignoreDuplicates, count: self._count, head: self._head
     };
     
-    var token = localStorage.getItem('mandioca_token');
-    var headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = 'Bearer ' + token;
-
     return fetch(API_URL, {
       method: 'POST',
-      headers: headers,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).then(function(r) {
-      if (r.status === 401 || r.status === 403) {
-        localStorage.removeItem('mandioca_token');
-        window.location.reload();
-      }
       return r.json();
     }).catch(function(err) {
       console.error('Sem conexao com server.ts:', err.message);
@@ -68,47 +60,15 @@
         from: function(table) { return new QB(table); },
         auth: {
           getSession: function() {
-            var token = localStorage.getItem('mandioca_token');
-            var user = JSON.parse(localStorage.getItem('mandioca_user') || 'null');
-            if (token && user) {
-              return Promise.resolve({ data: { session: { access_token: token, user: user } }, error: null });
-            }
-            return Promise.resolve({ data: { session: null }, error: null });
+            return Promise.resolve({ data: { session: { user: { id: 'local-admin', email: 'admin@local' } } }, error: null });
           },
-          signOut: function() { 
-            localStorage.removeItem('mandioca_token');
-            localStorage.removeItem('mandioca_user');
-            return Promise.resolve({}); 
-          },
-          signInWithPassword: async function(creds) {
-            try {
-              const r = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(creds)
-              });
-              const res = await r.json();
-              if (res.data) {
-                localStorage.setItem('mandioca_token', res.data.session.access_token);
-                localStorage.setItem('mandioca_user', JSON.stringify(res.data.session.user));
-              }
-              return res;
-            } catch(e) { return { error: e.message }; }
-          },
-          signUp: async function(creds) {
-            try {
-              const r = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(creds)
-              });
-              return await r.json();
-            } catch(e) { return { error: e.message }; }
-          }
+          signOut: function() { return Promise.resolve({}); },
+          signInWithPassword: async (creds) => ({ data: { user: { id: 'local-admin', email: creds.email } }, error: null }),
+          signUp: async (creds) => ({ data: { user: { id: 'local-admin', email: creds.email } }, error: null })
         }
       };
     }
   };
 
-  console.log('db-local.js carregado - usando MySQL backend');
+  console.log('db-local.js carregado - usando PostgreSQL local backend');
 })();

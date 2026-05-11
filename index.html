@@ -133,32 +133,7 @@
   </style>
 </head>
 <body>
-  <div id="authScreen" class="app-layout" style="justify-content: center; align-items: center; background: var(--green-dark); padding: 20px;">
-    <div class="card" style="width: 100%; max-width: 400px; text-align: center;">
-      <h2 style="color: var(--green-dark); margin-bottom: 20px;">MandiocaTrack</h2>
-      
-      <div style="display: flex; margin-bottom: 20px; border-bottom: 1px solid #eee;">
-        <button id="tabLogin" style="flex: 1; padding: 10px; border: none; background: none; cursor: pointer; border-bottom: 2px solid var(--green); font-weight: bold;">Login</button>
-        <button id="tabSignup" style="flex: 1; padding: 10px; border: none; background: none; cursor: pointer;">Cadastro</button>
-      </div>
-
-      <div id="loginForm">
-        <input type="email" id="loginEmail" placeholder="E-mail" />
-        <input type="password" id="loginPassword" placeholder="Senha" />
-        <button class="btn-primary" id="btnLogin" style="width: 100%;">Entrar</button>
-      </div>
-
-      <div id="signupForm" style="display: none;">
-        <input type="email" id="signupEmail" placeholder="E-mail" />
-        <input type="password" id="signupPassword" placeholder="Senha" />
-        <button class="btn-primary" id="btnSignup" style="width: 100%;">Cadastrar</button>
-      </div>
-
-      <div id="authMessage" style="margin-top: 15px; font-size: 13px; color: #ef4444;"></div>
-    </div>
-  </div>
-
-  <div id="appScreen" class="app-layout">
+  <div id="appScreen" class="app-layout" style="display: flex;">
     <header class="header">
       <div style="display: flex; align-items: center; gap: 10px;">
         <div style="width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;">M</div>
@@ -182,7 +157,6 @@
         <div class="sidebar-item" data-page="climate">🌦 Clima</div>
         <div class="sidebar-item" data-page="charts">📊 Gráficos</div>
         <div class="sidebar-item" data-page="reports">📄 Relatórios</div>
-        <div class="sidebar-item" data-page="users" id="sideUsers" style="display: none; border-top: 1px solid #1f2937; margin-top: 10px;">👥 Usuários</div>
       </aside>
 
       <main class="content-area" id="contentArea">
@@ -212,7 +186,6 @@
   <script src="/src/climate.js"></script>
   <script src="/src/charts.js"></script>
   <script src="/src/reports.js"></script>
-  <script src="/src/users.js"></script>
   <script src="/src/cronograma.js"></script>
   <script src="/src/mapadbc.js"></script>
   <script src="/src/dashboard.js"></script>
